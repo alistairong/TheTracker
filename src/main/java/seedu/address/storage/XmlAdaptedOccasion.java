@@ -86,21 +86,30 @@ public class XmlAdaptedOccasion {
     public Occasion toModelType() throws IllegalValueException {
         requireAllNonNull(this.occasionName, this.occasionDateTime, this.attendanceList);
         OccasionName occasionName = new OccasionName(this.occasionName);
-        OccasionDate occasionDate = new OccasionDate(this.occasionDateTime);
+        OccasionDate occasionDate;
+        OccasionLocation location;
+        if (!this.occasionDateTime.equals("")) {
+            occasionDate = new OccasionDate(this.occasionDateTime);
+        } else {
+            occasionDate = new OccasionDate();
+        }
         List<Person> attendanceList = new ArrayList<>();
         for (XmlAdaptedPerson person : this.attendanceList) {
             attendanceList.add(person.toModelType());
         }
 
         Set<Tag> tags = new HashSet<>();
-        OccasionLocation location = new OccasionLocation(this.location);
+        if (!this.location.equals("")) {
+            location = new OccasionLocation(this.location);
+        } else {
+            location = new OccasionLocation();
+        }
 
         if (tagMap != null && tagMap.size() > 0) {
             for (XmlAdaptedTag t : tagMap) {
                 tags.add(t.toModelType());
             }
         }
-
 
         return new Occasion(occasionName, occasionDate, location, tags, TypeUtil.OCCASION);
     }

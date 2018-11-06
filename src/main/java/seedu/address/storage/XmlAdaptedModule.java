@@ -104,32 +104,47 @@ public class XmlAdaptedModule {
         }
         final ModuleCode modelCode = new ModuleCode(moduleCode);
 
-        if (moduleTitle == null) {
+        ModuleTitle modelTitle;
+        if (this.moduleTitle == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     ModuleTitle.class.getSimpleName()));
         }
-        if (!ModuleTitle.isValidTitle(moduleTitle)) {
-            throw new IllegalValueException(ModuleTitle.MESSAGE_MODULETITLE_CONSTRAINTS);
+        if (this.moduleTitle.equals("")) {
+            modelTitle = new ModuleTitle();
+        } else {
+            if (!ModuleTitle.isValidTitle(this.moduleTitle)) {
+                throw new IllegalValueException(ModuleTitle.MESSAGE_MODULETITLE_CONSTRAINTS);
+            }
+            modelTitle = new ModuleTitle(this.moduleTitle);
         }
-        final ModuleTitle modelTitle = new ModuleTitle(moduleTitle);
 
+        AcademicYear modelAcademicYear;
         if (academicYear == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     AcademicYear.class.getSimpleName()));
         }
-        if (!AcademicYear.isValidYear(academicYear)) {
-            throw new IllegalValueException(AcademicYear.MESSAGE_ACADEMICYEAR_CONSTRAINTS);
+        if (academicYear.equals("")) {
+            modelAcademicYear = new AcademicYear();
+        } else {
+            if (!AcademicYear.isValidYear(academicYear)) {
+                throw new IllegalValueException(AcademicYear.MESSAGE_ACADEMICYEAR_CONSTRAINTS);
+            }
+            modelAcademicYear = new AcademicYear(academicYear);
         }
-        final AcademicYear modelAcademicYear = new AcademicYear(academicYear);
 
+        Semester modelSemester;
         if (semester == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Semester.class.getSimpleName()));
         }
-        if (!Semester.isValidSemester(semester)) {
-            throw new IllegalValueException(Semester.MESSAGE_SEMESTER_CONSTRAINTS);
+        if (semester.equals("")) {
+            modelSemester = new Semester();
+        } else {
+            if (!Semester.isValidSemester(semester)) {
+                throw new IllegalValueException(Semester.MESSAGE_SEMESTER_CONSTRAINTS);
+            }
+            modelSemester = new Semester(semester);
         }
-        final Semester modelSemester = new Semester(semester);
 
         Set<Tag> tagMap = new HashSet<>();
 

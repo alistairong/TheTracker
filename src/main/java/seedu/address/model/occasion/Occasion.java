@@ -132,8 +132,6 @@ public class Occasion {
         stringBuilder.append(getOccasionName())
                 .append(" ")
                 .append(getOccasionDate())
-                .append(" Attendance List: ")
-                .append(getAttendanceList()) // use the person's name to represent this Peron
                 // object.
                 .append(" Tags: ");
         getTags().forEach(stringBuilder::append);
